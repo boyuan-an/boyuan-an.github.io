@@ -38,6 +38,11 @@ body.sticky-bottom-footer {
   }
 }
 
+// Remove trailing gap after about content before social block
+.post article .clearfix > *:last-child {
+  margin-bottom: 0;
+}
+
 // TODO: redefine content layout.
 
 /******************************************************************************

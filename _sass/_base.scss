@@ -400,10 +400,13 @@ ul.task-list input[type="checkbox"] {
 // Social (bottom)
 
 .social {
-  text-align: center;
+  text-align: left;
+  margin-top: 0;
+  display: inline-block; /* allow it to sit next to the floated profile image */
+  vertical-align: top;
 
   .contact-icons {
-    font-size: 4rem;
+    font-size: 3rem;   /* control the icon size */
 
     a {
       img {

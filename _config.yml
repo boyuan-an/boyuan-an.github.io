@@ -7,9 +7,6 @@ first_name: Boyuan An
 # middle_name: R.
 last_name: 「安博源」
 contact_note: >
-  Robotics Engineering student @ Zhejiang University (Class of 2027).
-  Currently research intern at NYU AI4CE Lab.  
-  Interests: Reinforcement Learning, Embodied AI, Non-prehensile Manipulation.
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
   Boyuan An's personal academic website.  
   Robotics, Embodied AI, and Reinforcement Learning.
