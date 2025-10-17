@@ -102,4 +102,7 @@ jobs:
         if: github.event_name != 'pull_request'
         uses: JamesIves/github-pages-deploy-action@v4
         with:
+          # Explicitly publish to gh-pages using the default GITHUB_TOKEN
+          branch: gh-pages
           folder: _site
+          token: ${{ secrets.GITHUB_TOKEN }}
