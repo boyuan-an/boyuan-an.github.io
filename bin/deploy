@@ -92,6 +92,12 @@ git checkout -b $DEPLOY_BRANCH
 # Export JEKYLL_ENV=production
 export JEKYLL_ENV=production
 
+# Clean previous build artifacts to avoid permission/overwrite issues
+echo "Cleaning previous build artifacts..."
+chmod -R u+rwX _site 2>/dev/null || true
+rm -rf _site .jekyll-cache 2>/dev/null || true
+bundle exec jekyll clean 2>/dev/null || true
+
 # Build site
 bundle exec jekyll build
 
