@@ -1,0 +1,157 @@
+#!/usr/bin/env bash
+
+# Deploy Jekyll build (_site/) to gh-pages using a temporary worktree.
+#
+# Default behavior: build on `main`, sync _site/ to `gh-pages`, push.
+#
+# Usage:
+#   bin/deploy-gh-pages [options]
+#
+# Options:
+#   -s, --src <branch>       Source branch to build from (default: main)
+#   -d, --dest <branch>      Deploy branch (default: gh-pages)
+#   -w, --worktree <dir>     Temporary worktree dir (default: .gh-pages)
+#   --no-build               Skip building (assumes up-to-date _site/)
+#   --no-push                Do not push (commit locally only)
+#   --cname <domain>         Write CNAME with the given domain
+#   --allow-dirty            Allow uncommitted/untracked changes on source branch
+#   -v, --verbose            Verbose output (set -x)
+#   -h, --help               Show this help and exit
+
+set -Eeuo pipefail
+
+SRC_BRANCH="main"
+DEST_BRANCH="gh-pages"
+WORKTREE_DIR=".gh-pages"
+DO_BUILD=1
+DO_PUSH=1
+ALLOW_DIRTY=""
+CNAME_VAL=""
+
+usage() {
+  sed -n '1,40p' "$0" | sed -n '1,40p' | awk '/^# Usage:/{flag=1;next}/^$/{if(flag){exit}}flag'
+}
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -s|--src)
+      SRC_BRANCH="$2"; shift; shift ;;
+    -d|--dest)
+      DEST_BRANCH="$2"; shift; shift ;;
+    -w|--worktree)
+      WORKTREE_DIR="$2"; shift; shift ;;
+    --no-build)
+      DO_BUILD=0; shift ;;
+    --no-push)
+      DO_PUSH=0; shift ;;
+    --cname)
+      CNAME_VAL="$2"; shift; shift ;;
+    --allow-dirty)
+      ALLOW_DIRTY=1; shift ;;
+    -v|--verbose)
+      set -x; shift ;;
+    -h|--help)
+      usage; exit 0 ;;
+    *)
+      echo "Unknown option: $1" >&2; usage; exit 1 ;;
+  esac
+done
+
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+
+# Ensure we are on source branch (switch if needed)
+if [[ "$current_branch" != "$SRC_BRANCH" ]]; then
+  git checkout "$SRC_BRANCH"
+fi
+
+# Ensure clean working tree unless explicitly allowed
+if [[ -z "$ALLOW_DIRTY" ]]; then
+  if ! git diff-index --quiet HEAD --; then
+    echo "Uncommitted changes detected. Commit or use --allow-dirty." >&2
+    exit 1
+  fi
+  if [[ -n "$(git ls-files --exclude-standard --others)" ]]; then
+    echo "Untracked files detected. Commit/stash or use --allow-dirty." >&2
+    exit 1
+  fi
+fi
+
+# Build site if requested
+if [[ "$DO_BUILD" -eq 1 ]]; then
+  export JEKYLL_ENV=production
+  if command -v bundle >/dev/null 2>&1; then
+    bundle exec jekyll clean || true
+    bundle exec jekyll build
+  elif command -v jekyll >/dev/null 2>&1; then
+    jekyll clean || true
+    jekyll build
+  else
+    echo "Jekyll not found. Install via Ruby/bundler or run without build using --no-build." >&2
+    exit 1
+  fi
+fi
+
+# Verify _site exists and is non-empty
+if [[ ! -d _site || -z "$(ls -A _site 2>/dev/null || true)" ]]; then
+  echo "_site is missing or empty. Build the site first." >&2
+  exit 1
+fi
+
+src_sha=$(git rev-parse --short HEAD)
+
+# Prepare worktree
+if [[ -d "$WORKTREE_DIR" ]]; then
+  git worktree remove -f "$WORKTREE_DIR" 2>/dev/null || rm -rf "$WORKTREE_DIR"
+fi
+
+# Add worktree for DEST_BRANCH (create/reset branch locally)
+git worktree add -B "$DEST_BRANCH" "$WORKTREE_DIR"
+
+pushd "$WORKTREE_DIR" >/dev/null
+
+# Preserve existing CNAME if present and no explicit --cname
+preserve_cname=""
+if [[ -f CNAME && -z "$CNAME_VAL" ]]; then
+  preserve_cname=$(cat CNAME)
+fi
+
+# Clean all except .git
+find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+
+# Sync built site
+if command -v rsync >/dev/null 2>&1; then
+  rsync -a --delete --exclude .git ../_site/ ./
+else
+  cp -a ../_site/. ./
+fi
+
+# Bypass GitHub Pages Jekyll processing
+: > .nojekyll
+
+# Write/restore CNAME if applicable
+if [[ -n "$CNAME_VAL" ]]; then
+  printf "%s" "$CNAME_VAL" > CNAME
+elif [[ -n "$preserve_cname" ]]; then
+  printf "%s" "$preserve_cname" > CNAME
+fi
+
+git add -A
+if git diff --cached --quiet; then
+  echo "No changes to deploy."
+else
+  git commit -m "Deploy ${src_sha} @ $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+fi
+
+if [[ "$DO_PUSH" -eq 1 ]]; then
+  git push -f -u origin "$DEST_BRANCH"
+else
+  echo "Skipped push (--no-push)."
+fi
+
+popd >/dev/null
+
+# Cleanup worktree
+git worktree remove -f "$WORKTREE_DIR" >/dev/null || true
+
+echo "Deployment completed to branch '$DEST_BRANCH'."
+
