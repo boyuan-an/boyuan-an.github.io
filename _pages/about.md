@@ -33,4 +33,4 @@ Link to your social media connections, too. This theme is set up to use [Font Aw
 I am Boyuan An, an undergraduate student in Robotics Engineering (Honors Program) at [Zhejiang University](https://www.zju.edu.cn/english/), expected to graduate in 2027. Currently, I am a research intern at the [NYU AI4CE Lab](https://ai4ce.github.io/), working with Prof. [Chen Feng](https://scholar.google.com/citations?user=YeG8ZM0AAAAJ&hl=en). I am also fortunate to intern at [ZJU FAST LAB](https://github.com/ZJU-FAST-Lab) led by [Prof. Fei Gao](https://scholar.google.com/citations?user=4RObDv0AAAAJ&hl=en).
 
 
-My research interests include reinforcement learning, computer vision, and autonomous robotic systems.
+I focus on developing self-contained intelligence for robots to achieve high-level autonomy using onboard perception.
