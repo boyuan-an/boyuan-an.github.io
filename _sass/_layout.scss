@@ -43,6 +43,12 @@ body.sticky-bottom-footer {
   margin-bottom: 0;
 }
 
+// About page body typography (avoid affecting blog posts).
+.post.post-about article .clearfix {
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
 // TODO: redefine content layout.
 
 /******************************************************************************
