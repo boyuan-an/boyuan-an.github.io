@@ -818,6 +818,21 @@ footer.sticky-bottom {
         }
       }
 
+      .periodical {
+        p {
+          margin: 0;
+        }
+
+        p + p {
+          margin-top: 0.25rem;
+        }
+
+        ul,
+        ol {
+          margin: 0.25rem 0 0 0;
+        }
+      }
+
       .badges {
         padding-bottom: 0.5rem;
         span {

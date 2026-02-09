@@ -10,6 +10,21 @@
   - firstname: ["Fei", "F."]
     url: https://scholar.google.com/citations?user=4RObDv0AAAAJ&hl=en
 
+"wang":
+  # - firstname: ["Zhexiong", "Z."]
+  #   url: 
+  - firstname: ["Yipeng", "Y."]
+    url: https://epon-wang.github.io/
+"li" :
+  - firstname: ["Jiaqi", "J."]
+    url: https://songard.github.io/
+  - firstname: ["Sihang", "S."]
+    url: https://louis-leee.github.io/
+
+"zhang":
+  - firstname: ["Jing", "J."]
+    url: https://jingz6676.github.io/
+
 "feng":
   - firstname: ["Chen", "C."]
     url: https://scholar.google.com/citations?user=YeG8ZM0AAAAJ&hl=en

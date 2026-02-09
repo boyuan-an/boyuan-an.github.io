@@ -183,7 +183,7 @@
     </div>
     {% if entry.note %}
       <div class="periodical">
-        {{ entry.note | markdownify | remove: '<p>' | remove: '</p>' | strip }}
+        {{ entry.note | markdownify | strip }}
       </div>
     {% endif %}
 
