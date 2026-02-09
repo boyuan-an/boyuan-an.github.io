@@ -773,17 +773,18 @@ footer.sticky-bottom {
 
       .author {
         a {
-          border-bottom: 1px dashed var(--global-theme-color);
+          border-bottom: none;
+          text-decoration: none;
 
           &:hover {
-            border-bottom-style: solid;
             text-decoration: none;
           }
         }
 
         > em {
-          border-bottom: 1px solid;
+          border-bottom: 1px dashed;
           font-style: normal;
+          font-weight: 500;
         }
 
         > span.more-authors {
