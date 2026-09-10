@@ -12,10 +12,10 @@
 
 "wang":
   # - firstname: ["Zhexiong", "Z."]
-  #   url: 
+  #   url:
   - firstname: ["Yipeng", "Y."]
     url: https://epon-wang.github.io/
-"li" :
+"li":
   - firstname: ["Jiaqi", "J."]
     url: https://songard.github.io/
   - firstname: ["Sihang", "S."]
@@ -24,6 +24,34 @@
 "zhang":
   - firstname: ["Jing", "J."]
     url: https://jingz6676.github.io/
+  - firstname: ["Kaifeng", "K."]
+    url: https://openreview.net/profile?id=%7EKaifeng_Zhang1
+
+"wu":
+  - firstname: ["Tianyue"]
+    url: https://tianyueh8erobot.github.io/
+  - firstname: ["Ruihai"]
+    url: https://warshallrho.github.io/
+
+"zhao":
+  - firstname: ["Shuqi"]
+    url: https://zhao-sq.github.io/
+
+"guo":
+  - firstname: ["Heyu"]
+    url: https://github.com/GuoHeyu
+
+"xing":
+  - firstname: ["Wanli"]
+    url: https://wlxing1901.github.io/
+
+"ma":
+  - firstname: ["Yi"]
+    url: https://people.eecs.berkeley.edu/~yima/
+
+"tomizuka":
+  - firstname: ["Masayoshi"]
+    url: https://me.berkeley.edu/people/masayoshi-tomizuka/
 
 "feng":
   - firstname: ["Chen", "C."]

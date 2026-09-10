@@ -11,7 +11,18 @@
   {% endif %}
 {% endcapture %}
 
-{% if site.footer_fixed %}
+{% if page.permalink == '/' %}
+  <footer class="home-footer" role="contentinfo">
+    <div class="home-footer-inner">
+      <span
+        >&copy; {{ site.time | date: '%Y' }}
+        {{ site.first_name -}}
+      </span>
+      <span>Built with <a href="https://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/alshedivat/al-folio">al-folio</a></span>
+      <a href="#about">Back to top <span aria-hidden="true">↑</span></a>
+    </div>
+  </footer>
+{% elsif site.footer_fixed %}
   <footer class="fixed-bottom" role="contentinfo">
     <div class="container mt-0">
       {{ footer_contents }}

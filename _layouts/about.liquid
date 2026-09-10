@@ -2,57 +2,64 @@
 layout: default
 ---
 <div class="post post-about">
-  <header class="post-header">
-    <h1 class="post-title">
-      {% if site.title == 'blank' %}
-        <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
-        {{ site.last_name }}
-      {% else %}
-        {{ site.title }}
+  <section class="home-intro" id="about" aria-labelledby="home-name">
+    <div class="home-intro-copy">
+      <header class="post-header">
+        <h1 class="post-title" id="home-name">
+          {% if site.title == 'blank' %}
+            {{ site.first_name }}
+            {{ site.middle_name }}
+            <span class="home-native-name" lang="zh">{{ site.last_name }}</span>
+          {% else %}
+            {{ site.title }}
+          {% endif %}
+        </h1>
+        {% if page.subtitle %}
+          <p class="desc">{{ page.subtitle }}</p>
+        {% endif %}
+      </header>
+      <div class="home-bio">{{ content }}</div>
+      {% if page.social %}
+        <nav class="home-contact" id="contact" aria-label="Contact and academic profiles">
+          {% if site.data.socials.email -%}
+            <a href="mailto:{{ site.data.socials.email | encode_email }}">Email <span aria-hidden="true">↗</span></a>
+          {%- endif %}
+          {% if site.data.socials.scholar_userid -%}
+            <a href="https://scholar.google.com/citations?user={{ site.data.socials.scholar_userid }}"
+              >Google Scholar <span aria-hidden="true">↗</span></a
+            >
+          {%- endif %}
+          {% if site.data.socials.linkedin_username -%}
+            <a href="https://www.linkedin.com/in/{{ site.data.socials.linkedin_username }}/">LinkedIn <span aria-hidden="true">↗</span></a>
+          {%- endif %}
+          {% if site.data.socials.x_username -%}
+            <a href="https://x.com/{{ site.data.socials.x_username }}">X <span aria-hidden="true">↗</span></a>
+          {%- endif %}
+        </nav>
       {% endif %}
-    </h1>
-    <p class="desc">{{ page.subtitle }}</p>
-  </header>
-
-  <article>
+    </div>
     {% if page.profile %}
-      <div class="profile float-{% if page.profile.align == 'left' %}left{% else %}right{% endif %}">
+      <div class="profile home-portrait">
         {% if page.profile.image %}
           {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
           {% if page.profile.image_circular %}
-            {% assign profile_image_class = 'img-fluid z-depth-1 rounded-circle' %}
+            {% assign profile_image_class = 'img-fluid rounded-circle' %}
           {% else %}
-            {% assign profile_image_class = 'img-fluid z-depth-1
-      rounded' %}
+            {% assign profile_image_class = 'img-fluid' %}
           {% endif %}
-          {% capture sizes %}(min-width: {{ site.max_width }}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 576px)
-      30vw, 95vw"{% endcapture %}
           {%
-            include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image
+            include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes="(max-width: 680px) 160px, 216px" alt="Boyuan An with a robot at IROS 2025"
             cache_bust=true
           %}
         {% endif %}
+        <p class="home-photo-caption">IROS 2025 <span aria-hidden="true">/</span> Hangzhou</p>
         {% if page.profile.more_info %}
           <div class="more-info">{{ page.profile.more_info }}</div>
         {% endif %}
       </div>
     {% endif %}
-
-    <div class="clearfix">
-      {{ content }}
-      {% if page.social %}
-        <div class="social">
-          {% if page.profile.email %}
-            <span class="email"><strong>Email:</strong> {{ page.profile.email }}</span>
-          {% endif %}
-          <span class="contact-icons">{% include social.liquid %}</span>
-          {% if site.contact_note %}
-            <span class="contact-note">{{ site.contact_note }}</span>
-          {% endif %}
-        </div>
-      {% endif %}
-    </div>
-
+  </section>
+  <article>
     <!-- News -->
     {% if page.announcements and page.announcements.enabled %}
       <h2>
@@ -71,14 +78,24 @@ layout: default
 
     <!-- Selected papers -->
     {% if page.selected_papers %}
-      <h2>publications</h2>
-      {% include selected_papers.liquid %}
+      <section class="home-section" id="publications" aria-labelledby="publications-heading">
+        <header class="home-section-heading">
+          <h2 id="publications-heading">Publications</h2>
+          <span class="home-section-note">Selected research</span>
+        </header>
+        {% include selected_papers.liquid %}
+      </section>
     {% endif %}
 
     <!-- Selected projects -->
     {% if page.selected_projects %}
-      <h2>projects</h2>
-      {% include selected_projects.liquid %}
+      <section class="home-section" id="projects" aria-labelledby="projects-heading">
+        <header class="home-section-heading">
+          <h2 id="projects-heading">Projects</h2>
+          <span class="home-section-note">Building &amp; exploring</span>
+        </header>
+        {% include selected_projects.liquid %}
+      </section>
     {% endif %}
 
     {% if site.newsletter and site.newsletter.enabled and site.footer_fixed %}
