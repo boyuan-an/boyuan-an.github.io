@@ -25,6 +25,6 @@ social: true # includes social icons at the bottom of the page
 
 I am an undergraduate student in Robotics Engineering (Honors Program) at [Zhejiang University](https://www.zju.edu.cn/english/), expected to graduate in 2027.
 
-Currently, I am a research intern at the [NYU AI4CE Lab](https://ai4ce.github.io/), working with Prof. [Chen Feng](https://scholar.google.com/citations?user=YeG8ZM0AAAAJ&hl=en). I am also fortunate to intern at [ZJU FAST LAB](https://github.com/ZJU-FAST-Lab), led by Prof. [Fei Gao](https://scholar.google.com/citations?user=4RObDv0AAAAJ&hl=en).
+Currently, I am a visiting student at [UC Berkeley](https://www.berkeley.edu/), advised by Prof. [Mingyu Ding](https://dingmyu.github.io/) and Prof. [Masayoshi Tomizuka](https://me.berkeley.edu/people/masayoshi-tomizuka/). In summer 2025, I was a research intern at the [NYU AI4CE Lab](https://ai4ce.github.io/), working with Prof. [Chen Feng](https://scholar.google.com/citations?user=YeG8ZM0AAAAJ&hl=en). I began my robotics research at [ZJU FAST LAB](https://github.com/ZJU-FAST-Lab), led by Prof. [Fei Gao](https://scholar.google.com/citations?user=4RObDv0AAAAJ&hl=en).
 
-My long-term research vision is to develop self-contained intelligence for robots to achieve high-level autonomy using onboard perception.
+My long-term research vision is to develop self-contained intelligence for robots to achieve human-level autonomy and dexterity.
