@@ -5,3 +5,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://boyuan-an.github.io/sitemap.xml
+Sitemap: https://boyuan-an.github.io/GALATEA/sitemap.xml
